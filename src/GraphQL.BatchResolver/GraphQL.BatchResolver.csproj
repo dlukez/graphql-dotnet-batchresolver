@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework Condition="  '$(OS)' == 'Unix'       ">netstandard1.1</TargetFramework>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard1.1;net45</TargetFrameworks>
+    <PackageId>GraphQL.BatchResolver</PackageId>
+    <Description>Batch resolver for GraphQL in .NET.</Description>
+    <Authors>Daniel Zimmermann</Authors>
+    <PackageTags>graphql batch orm select n+1 dotnet</PackageTags>
+    <PackageProjectUrl>https://github.com/dlukez/graphql-batchresolver</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/dlukez/graphql-batchresolver/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageTargetFallback>$(PackageTargetFallback);dotnet;portable-net45</PackageTargetFallback>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="GraphQL" Version="0.15.0.671" />
+  </ItemGroup>
+</Project>

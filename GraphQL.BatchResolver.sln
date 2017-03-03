@@ -1,0 +1,50 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A41378FB-84B7-49C2-A960-5CAABDE5DE3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.BatchResolver", "src\GraphQL.BatchResolver\GraphQL.BatchResolver.csproj", "{E88E6E24-27F8-4056-AE20-B0D12CE05F82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{A56A4345-4A4F-4E86-A7F1-2259AAF61125}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.BatchResolver.Sample", "samples\GraphQL.BatchResolver.Sample\GraphQL.BatchResolver.Sample.csproj", "{985F86FE-075F-4DE8-B103-4CA971C7F9F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Debug|x64.ActiveCfg = Debug|x64
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Debug|x64.Build.0 = Debug|x64
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Debug|x86.ActiveCfg = Debug|x86
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Debug|x86.Build.0 = Debug|x86
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Release|x64.ActiveCfg = Release|x64
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Release|x64.Build.0 = Release|x64
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Release|x86.ActiveCfg = Release|x86
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82}.Release|x86.Build.0 = Release|x86
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Debug|x64.ActiveCfg = Debug|x64
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Debug|x64.Build.0 = Debug|x64
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Debug|x86.ActiveCfg = Debug|x86
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Debug|x86.Build.0 = Debug|x86
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Release|x64.ActiveCfg = Release|x64
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Release|x64.Build.0 = Release|x64
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Release|x86.ActiveCfg = Release|x86
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E88E6E24-27F8-4056-AE20-B0D12CE05F82} = {A41378FB-84B7-49C2-A960-5CAABDE5DE3A}
+		{985F86FE-075F-4DE8-B103-4CA971C7F9F8} = {A56A4345-4A4F-4E86-A7F1-2259AAF61125}
+	EndGlobalSection
+EndGlobal

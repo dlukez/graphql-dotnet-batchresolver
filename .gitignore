@@ -1,0 +1,25 @@
+# Third-party components
+node_modules/
+bower_components/
+packages/
+
+# User-specific files
+*.suo
+*.user
+*.userprefs
+
+# Build files
+[Bb]in/
+[Oo]bj/
+
+# Project files
+.idea/
+.vs/
+project.lock.json
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Miscellaneous files
+.DS_STORE
+Thumbs.db
