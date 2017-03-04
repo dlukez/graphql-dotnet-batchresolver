@@ -6,7 +6,7 @@
     "tasks": [
         {
             "taskName": "build",
-            "args": [],
+            "args": [ "samples/GraphQL.BatchResolver.Sample/GraphQL.BatchResolver.Sample.csproj" ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
         }

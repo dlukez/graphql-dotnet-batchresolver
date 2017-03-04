@@ -24,13 +24,12 @@ namespace GraphQL.BatchResolver
         {
             _field = field;
             _field.Resolver = null;
-            _field.Metadata[MetadataKeys.FieldIsBatched] = true;
             _keySelector = keySelector;
         }
         
         public void Resolve<TReturn>(Func<ResolveFieldContext<IEnumerable<TKey>>, Task<ILookup<TKey, TReturn>>> fetch)
         {
-            _field.Resolver = new BatchResolver<TSource, TKey, TReturn>(_keySelector, fetch);
+            _field.Resolver = new BatchFieldResolver<TSource, TKey, TReturn>(_keySelector, fetch);
         }
     }
 }

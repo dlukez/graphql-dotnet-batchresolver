@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using System.Linq;
 using GraphQL.BatchResolver.Sample.Schema;
-using Microsoft.AspNetCore.Hosting;
 
 namespace GraphQL.BatchResolver.Sample
 {
@@ -12,14 +10,16 @@ namespace GraphQL.BatchResolver.Sample
         {
             InitTestData();
 
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseStartup<Startup>()
-                .UseIISIntegration()
-                .Build();
+            Profiler.RunTests();
 
-            host.Run();
+            // var host = new WebHostBuilder()
+            //     .UseKestrel()
+            //     .UseContentRoot(Directory.GetCurrentDirectory())
+            //     .UseStartup<Startup>()
+            //     .UseIISIntegration()
+            //     .Build();
+
+            // host.Run()
         }
 
         private static void InitTestData()
