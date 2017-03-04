@@ -19,7 +19,7 @@ namespace GraphQL.BatchResolver.Sample.Schema
             Name = "Droid";
             Field(d => d.Name);
             Field(d => d.DroidId);
-            Field(d => d.PrimaryFunction);
+            Field(d => d.PrimaryFunction, nullable: true);
 
             Field<ListGraphType<CharacterInterface>>()
                 .Name("friends")

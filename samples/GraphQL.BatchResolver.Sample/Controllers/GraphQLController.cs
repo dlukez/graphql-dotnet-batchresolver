@@ -44,7 +44,7 @@ namespace GraphQL.BatchResolver.Sample
             });
 
             sw.Stop();
-            Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId.ToString().PadLeft(2, ' ')} - Finished query #{queryNumber} ({sw.ElapsedMilliseconds}ms)");
+            Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId.ToString().PadLeft(2, ' ')} - Finished query #{queryNumber} ({sw.ElapsedMilliseconds}ms, {result.Perf.Length} field resolutions)");
 
             return result;
         }

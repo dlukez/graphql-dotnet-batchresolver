@@ -16,7 +16,7 @@ namespace GraphQL.BatchResolver
             var result = await next(context).ConfigureAwait(false);
 
             var enumerable = result as IEnumerable<object>;
-            if (enumerable != null && enumerable.Any())
+            if (enumerable != null && !(result is string) && enumerable.Any())
                 BatchLookup.SaveCollection(enumerable);
 
             return result;
