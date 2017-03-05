@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using GraphQL.BatchResolver.Sample.Schema;
 using Microsoft.AspNetCore.Hosting;
 
 namespace GraphQL.BatchResolver.Sample
@@ -51,8 +50,6 @@ namespace GraphQL.BatchResolver.Sample
                 }));
 
                 // Droids
-                // int capitalA = 'A';
-                // int capitalZ = 'Z';
                 db.Droids.AddRange(Enumerable.Range(1, numberOfDroids).Select(id => new Droid
                 {
                     DroidId = id,
