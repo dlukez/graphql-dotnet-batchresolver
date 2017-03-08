@@ -9,9 +9,21 @@ namespace GraphQL.BatchResolver
 {
     public static class FieldBuilderExtensions
     {
+        public static BatchFieldBuilder<TSource> Batch<TSource>(this FieldBuilder<TSource, object> builder)
+        {
+            return new BatchFieldBuilder<TSource>(builder.FieldType);
+        }
         public static BatchFieldBuilder<TSource, TKey> Batch<TSource, TKey>(this FieldBuilder<TSource, object> builder, Func<TSource, TKey> keySelector)
         {
             return new BatchFieldBuilder<TSource, TKey>(builder.FieldType, keySelector);
+        }
+    }
+
+    public class BatchFieldBuilder<TSource> : BatchFieldBuilder<TSource, TSource>
+    {
+        public BatchFieldBuilder(FieldType fieldType)
+            : base(fieldType, x => x)
+        {
         }
     }
 
@@ -29,7 +41,7 @@ namespace GraphQL.BatchResolver
         
         public void Resolve<TReturn>(Func<ResolveFieldContext<IEnumerable<TKey>>, Task<ILookup<TKey, TReturn>>> fetch)
         {
-            _field.Resolver = new BatchFieldResolver<TSource, TKey, TReturn>(_keySelector, fetch);
+            _field.Resolver = new BatchFieldResolver<TSource, TKey, TReturn>(fetch, _keySelector);
         }
     }
 }

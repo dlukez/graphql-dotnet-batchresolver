@@ -27,38 +27,22 @@ namespace GraphQL.BatchResolver.Sample
             {
                 if (db.Humans.Any()) return;
 
-                const int numberOfHumans = 1000;
-                const int numberOfDroids = 1000;
-                const int numberOfFriendships = 1500;
-                const int numberOfAppearancesPerType = 1250;
-
-                var random = new Random();
-
+                // Clear
                 db.Humans.RemoveRange(db.Humans);
                 db.Droids.RemoveRange(db.Droids);
                 db.Episodes.RemoveRange(db.Episodes);
                 db.Friendships.RemoveRange(db.Friendships);
                 db.DroidAppearances.RemoveRange(db.DroidAppearances);
                 db.HumanAppearances.RemoveRange(db.HumanAppearances);
+                db.SaveChanges();
 
-                // Humans
-                db.Humans.AddRange(Enumerable.Range(1, numberOfHumans).Select(id => new Human
-                {
-                    HumanId = id,
-                    Name = Faker.Name.First(),
-                    HomePlanet = Faker.Company.BS()
-                }));
-
-                // Droids
-                db.Droids.AddRange(Enumerable.Range(1, numberOfDroids).Select(id => new Droid
-                {
-                    DroidId = id,
-                    Name = $"{(char)Faker.RandomNumber.Next('A', 'Z')}"
-                         + $"{Faker.RandomNumber.Next(1, 9)}"
-                         + $"{(char)Faker.RandomNumber.Next('A', 'Z')}"
-                         + $"{Faker.RandomNumber.Next(1, 9)}"
-                }));
-
+                // Regenerate
+                const int numberOfHumans = 1000;
+                const int numberOfDroids = 1000;
+                const int numberOfFriendships = 1500;
+                const int numberOfAppearances = 2;
+                var random = new Random();
+                
                 // Episodes
                 db.Episodes.AddRange(new[]
                 {
@@ -67,26 +51,45 @@ namespace GraphQL.BatchResolver.Sample
                     new Episode { EpisodeId = 6, Name = "Return of the Jedi", Year = "1983" }
                 });
 
+                // Humans
+                db.Humans.AddRange(
+                    Enumerable.Range(1, numberOfHumans).Select(id => new Human
+                    {
+                        HumanId = id,
+                        Name = Faker.Name.First(),
+                        HomePlanet = Faker.Company.Name(),
+                        Appearances = Enumerable.Repeat(1, numberOfAppearances).Select(_ => new HumanAppearance
+                            {
+                                EpisodeId = random.Next(4, 6),
+                                HumanId = id
+                            }).ToList()
+                    }));
+
+                // Droids
+                db.Droids.AddRange(
+                    Enumerable.Range(1, numberOfDroids).Select(id => new Droid
+                    {
+                        DroidId = id,
+                        Name = $"{(char)random.Next('A', 'Z')}"
+                            + $"{random.Next(1, 9)}"
+                            + $"{(char)random.Next('A', 'Z')}"
+                            + $"{random.Next(1, 9)}",
+                        PrimaryFunction = Faker.Company.BS(),
+                        Appearances = Enumerable.Range(1, numberOfAppearances).Select(_ => new DroidAppearance
+                            {
+                                EpisodeId = random.Next(4, 6),
+                                DroidId = random.Next(1, numberOfDroids)
+                            }).ToList()
+                    }));
+
+
                 // Friendships
-                db.Friendships.AddRange(Enumerable.Range(1, numberOfFriendships).Select(_ => new Friendship
-                {
-                    DroidId = random.Next(1, numberOfDroids),
-                    HumanId = random.Next(1, numberOfHumans)
-                }));
-
-                // Appearances (Droid)
-                db.DroidAppearances.AddRange(Enumerable.Range(1, numberOfAppearancesPerType).Select(_ => new DroidAppearance
-                {
-                    EpisodeId = random.Next(4, 6),
-                    DroidId = random.Next(1, numberOfDroids)
-                }));
-
-                // Appearances (Human)
-                db.HumanAppearances.AddRange(Enumerable.Range(1, numberOfAppearancesPerType).Select(_ => new HumanAppearance
-                {
-                    EpisodeId = random.Next(4, 6),
-                    HumanId = random.Next(1, numberOfHumans)
-                }));
+                db.Friendships.AddRange(
+                    Enumerable.Range(1, numberOfFriendships).Select(_ => new Friendship
+                    {
+                        DroidId = random.Next(1, numberOfDroids),
+                        HumanId = random.Next(1, numberOfHumans)
+                    }));
 
                 // Save
                 var count = db.SaveChanges();
