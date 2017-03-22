@@ -5,9 +5,12 @@ if (-not $env:BuildRunner) { $env:PackageVersion = (gitversion | ConvertFrom-Jso
 function Invoke-BuildStep { param([scriptblock]$cmd) & $cmd; if ($LASTEXITCODE -ne 0) { exit 1 } }
 
 # Build
-Invoke-BuildStep { dotnet restore src/GraphQL.BatchResolver/GraphQL.BatchResolver.csproj }
-Invoke-BuildStep { dotnet build src/GraphQL.BatchResolver/GraphQL.BatchResolver.csproj }
-Invoke-BuildStep { dotnet pack src/GraphQL.BatchResolver/GraphQL.BatchResolver.csproj --include-symbols --no-build }
+Push-Location src/GraphQL.BatchResolver/
+try {
+    Invoke-BuildStep { dotnet restore }
+    Invoke-BuildStep { dotnet build }
+    Invoke-BuildStep { dotnet pack --include-symbols --no-build }
+} finally { Pop-Location }
 
 # Done
 exit
