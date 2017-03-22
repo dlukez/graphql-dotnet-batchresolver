@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using GraphQL.BatchResolver.Sample.Schema;
@@ -38,9 +37,7 @@ namespace GraphQL.BatchResolver.Sample
                 _.Query = request.Query;
                 _.Schema = _schema;
                 _.UserContext = new StarWarsContext();
-                _.FieldMiddleware
-                    .Use<BatchMiddleware>()
-                    .Use<InstrumentFieldsMiddleware>();
+                _.FieldMiddleware.Use<InstrumentFieldsMiddleware>();
             });
 
             sw.Stop();

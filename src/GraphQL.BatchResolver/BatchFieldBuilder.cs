@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GraphQL.Builders;
+using GraphQL.Resolvers;
 using GraphQL.Types;
 
 namespace GraphQL.BatchResolver
@@ -38,10 +39,15 @@ namespace GraphQL.BatchResolver
             _field.Resolver = null;
             _keySelector = keySelector;
         }
+
+        public void Resolve<TReturn>(Func<ResolveFieldContext, Task<IEnumerable<TReturn>>> fetch)
+        {
+            _field.Resolver = new RootBatchResolver<TReturn>(fetch);
+        }
         
         public void Resolve<TReturn>(Func<ResolveFieldContext<IEnumerable<TKey>>, Task<ILookup<TKey, TReturn>>> fetch)
         {
-            _field.Resolver = new BatchFieldResolver<TSource, TKey, TReturn>(fetch, _keySelector);
+            _field.Resolver = new ChildBatchResolver<TSource, TKey, TReturn>(fetch, _keySelector);
         }
     }
 }

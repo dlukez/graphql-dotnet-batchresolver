@@ -1,0 +1,58 @@
+root:
+    episodes:                   <-- Load episodes 4, 5, 6 (push episodes)
+        - 4
+            characters:             <-- Load characters in episodes 4, 5, 6 (push characters)
+                - Droid 1               
+                    friends:            <-- Load friends of droids that are characters in episodes 4, 5, 6 (push droid friends)
+                        - 1
+                        - 2
+                        - 3
+                    appearsIn:          <-- Load appearances of droids that are characters in episodes 4, 5, 6 (push droid appearances)
+                        - 5
+                        - 6
+                - Droid 2
+                    friends:
+                        - 1
+                        - 2
+                        - 3
+                    appearsIn:
+                        - 5
+                        - 6
+                - Human 1
+                    friends:            <-- Load friends of humans that are characters in episodes 4, 5, 6
+                        - 1
+                        - 2
+                        - 3
+                    appearsIn:          <-- Load appearances of people that are characters in episodes 4, 5, 6
+                        - 5
+                        - 6
+                - Human 2
+                    friends:
+                        - 1
+                        - 2
+                        - 3
+                    appearsIn:
+                        - 5
+                        - 6
+                - Human 3
+                    friends:
+                        - 1
+                        - 2
+                        - 3
+                    appearsIn:
+                        - 5
+                        - 6
+        - 5
+            characters:
+                - 6
+                - 7
+                - 8
+                - 2
+                - 1
+        - 6
+            characters:
+                - 9
+                - 8
+                - 7
+                - 6
+                - ...

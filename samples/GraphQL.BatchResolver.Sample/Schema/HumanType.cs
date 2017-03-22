@@ -6,7 +6,6 @@
  */
 
 using System.Linq;
-using GraphQL.BatchResolver;
 using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
 

@@ -6,7 +6,7 @@
     <DefaultExcludesInProjectFolder>$(DefaultExcludesInProjectFolder);**/node_modules/**</DefaultExcludesInProjectFolder>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\GraphQL.BatchResolver\GraphQL.BatchResolver.csproj" />
+    <ProjectReference Include="../../src/GraphQL.BatchResolver/GraphQL.BatchResolver.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="GraphQL" Version="0.15.1.678" />

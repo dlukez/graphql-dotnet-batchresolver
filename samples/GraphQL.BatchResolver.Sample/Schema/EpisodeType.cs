@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,12 +24,12 @@ namespace GraphQL.BatchResolver.Sample.Schema
 
                     var humans = await db.HumanAppearances
                         .Where(ha => ids.Contains(ha.EpisodeId))
-                        .Select(ha => new HumanAppearance { EpisodeId = ha.EpisodeId, Human = ha.Human })
+                        .Include(ha => ha.Human)
                         .ToListAsync<ICharacterAppearance>();
 
                     var droids = await db.DroidAppearances
                         .Where(da => ids.Contains(da.EpisodeId))
-                        .Select(da => new DroidAppearance { EpisodeId = da.EpisodeId, Droid = da.Droid })
+                        .Include(da => da.Droid)
                         .ToListAsync<ICharacterAppearance>();
 
                     return humans.Concat(droids).ToLookup(a => a.EpisodeId, a => a.Character);
