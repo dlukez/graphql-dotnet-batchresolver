@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using GraphQL.Resolvers;
 using GraphQL.Types;
 
 namespace GraphQL.BatchResolver
 {
+    /// <summary>
+    /// Adds support for resolving batches from an inner object.
+    /// </summary>
     public class ChildBatchResolver<TSource, TKey, TReturn> : IFieldResolver
     {
         private readonly ConditionalWeakTable<object, Task<ILookup<TKey, TReturn>>> _resultsTable = new ConditionalWeakTable<object, Task<ILookup<TKey, TReturn>>>();

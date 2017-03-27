@@ -18,9 +18,9 @@ namespace GraphQL.BatchResolver
             _resolve = resolve;
         }
 
-        public async Task<IEnumerable<TReturn>> Resolve(ResolveFieldContext context)
+        public Task<IEnumerable<TReturn>> Resolve(ResolveFieldContext context)
         {
-            return BatchStack.Push(await _resolve(context).ConfigureAwait(false));
+            return _resolve(context).ContinueWith(t => BatchStack.Push(t.Result), TaskContinuationOptions.ExecuteSynchronously);
         }
 
         object IFieldResolver.Resolve(ResolveFieldContext context)

@@ -8,10 +8,8 @@
     <PackageTags>graphql batch orm select n+1 dotnet</PackageTags>
     <PackageProjectUrl>https://github.com/dlukez/graphql-batchresolver</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/dlukez/graphql-batchresolver/blob/master/LICENSE.md</PackageLicenseUrl>
-    <PackageTargetFallback>$(PackageTargetFallback);dotnet</PackageTargetFallback>
+    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.1' ">$(PackageTargetFallback);dotnet</PackageTargetFallback>
   </PropertyGroup>
-  <ItemGroup>
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="GraphQL" Version="0.15.1.678" />
   </ItemGroup>
