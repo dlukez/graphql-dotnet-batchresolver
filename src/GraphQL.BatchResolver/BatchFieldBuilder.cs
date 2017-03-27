@@ -1,53 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using GraphQL.Builders;
+using GraphQL.Resolvers;
 using GraphQL.Types;
 
 namespace GraphQL.BatchResolver
 {
     public static class FieldBuilderExtensions
     {
-        public static BatchFieldBuilder<TSource> Batch<TSource>(this FieldBuilder<TSource, object> builder)
+        public static FieldBuilder<TSource, object> Resolve<TSource, TReturn>(this FieldBuilder<TSource, object> builder, Func<ResolveFieldContext, IEnumerable<TReturn>> resolve)
         {
-            return new BatchFieldBuilder<TSource>(builder.FieldType);
+            return builder.Resolve(new FuncFieldResolver<IEnumerable<TReturn>>(ctx => BatchStack.Push(resolve(ctx))));
         }
 
-        public static BatchFieldBuilder<TSource, TKey> Batch<TSource, TKey>(this FieldBuilder<TSource, object> builder, Func<TSource, TKey> keySelector)
+        public static FieldBuilder<TSource, object> ResolveMany<TSource, TKey, TReturn>(this FieldBuilder<TSource, object> builder, Func<TSource, TKey> keySelector, Func<ResolveFieldContext<IEnumerable<TKey>>, ILookup<TKey, TReturn>> resolve)
         {
-            return new BatchFieldBuilder<TSource, TKey>(builder.FieldType, keySelector);
-        }
-    }
-
-    public class BatchFieldBuilder<TSource> : BatchFieldBuilder<TSource, TSource>
-    {
-        public BatchFieldBuilder(FieldType fieldType)
-            : base(fieldType, x => x)
-        {
-        }
-    }
-
-    public class BatchFieldBuilder<TSource, TKey>
-    {
-        private readonly FieldType _field;
-        private readonly Func<TSource, TKey> _keySelector;
-
-        public BatchFieldBuilder(FieldType field, Func<TSource, TKey> keySelector)
-        {
-            _field = field;
-            _field.Resolver = null;
-            _keySelector = keySelector;
-        }
-
-        public void Resolve<TReturn>(Func<ResolveFieldContext, Task<IEnumerable<TReturn>>> fetch)
-        {
-            _field.Resolver = new RootBatchResolver<TReturn>(fetch);
-        }
-
-        public void Resolve<TReturn>(Func<ResolveFieldContext<IEnumerable<TKey>>, Task<ILookup<TKey, TReturn>>> fetch)
-        {
-            _field.Resolver = new ChildBatchResolver<TSource, TKey, TReturn>(fetch, _keySelector);
+            return builder.Resolve(new ChildBatchResolver<TSource, TKey, TReturn>(resolve, keySelector));
         }
     }
 }

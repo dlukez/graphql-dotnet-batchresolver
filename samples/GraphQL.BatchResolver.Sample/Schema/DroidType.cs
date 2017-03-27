@@ -23,29 +23,25 @@ namespace GraphQL.BatchResolver.Sample.Schema
 
             Field<ListGraphType<CharacterInterface>>()
                 .Name("friends")
-                .Batch(d => d.DroidId)
-                .Resolve(async ctx =>
+                .ResolveMany(d => d.DroidId, ctx =>
                 {
                     var ids = ctx.Source;
                     var db = ctx.GetDataContext();
-                    return (await db.Friendships
-                            .Where(f => ids.Contains(f.DroidId))
-                            .Select(f => new { Key = f.DroidId, f.Human })
-                            .ToListAsync())
+                    return db.Friendships
+                        .Where(f => ids.Contains(f.DroidId))
+                        .Select(f => new { Key = f.DroidId, f.Human })
                         .ToLookup(x => x.Key, x => (ICharacter)x.Human);
                 });
 
             Field<ListGraphType<EpisodeType>>()
                 .Name("appearsIn")
-                .Batch(d => d.DroidId)
-                .Resolve(async ctx =>
+                .ResolveMany(d => d.DroidId, ctx =>
                 {
                     var ids = ctx.Source;
                     var db = ctx.GetDataContext();
-                    return (await db.DroidAppearances
-                            .Where(da => ids.Contains(da.DroidId))
-                            .Select(da => new { Key = da.DroidId, da.Episode })
-                            .ToListAsync())
+                    return db.DroidAppearances
+                        .Where(da => ids.Contains(da.DroidId))
+                        .Select(da => new { Key = da.DroidId, da.Episode })
                         .ToLookup(x => x.Key, x => x.Episode);
                 });
                 

@@ -15,23 +15,22 @@ namespace GraphQL.BatchResolver.Sample.Schema
 
             Field<ListGraphType<CharacterInterface>>()
                 .Name("characters")
-                .Batch(e => e.EpisodeId)
-                .Resolve(async ctx =>
+                .ResolveMany(e => e.EpisodeId, ctx =>
                 {
                     var ids = ctx.Source;
                     var db = ctx.GetDataContext();
 
-                    var humans = await db.HumanAppearances
+                    var humanAppearances = db.HumanAppearances
                         .Where(ha => ids.Contains(ha.EpisodeId))
                         .Include(ha => ha.Human)
-                        .ToListAsync<ICharacterAppearance>();
+                        .ToList<ICharacterAppearance>();
 
-                    var droids = await db.DroidAppearances
+                    var droidAppearances = db.DroidAppearances
                         .Where(da => ids.Contains(da.EpisodeId))
                         .Include(da => da.Droid)
-                        .ToListAsync<ICharacterAppearance>();
+                        .ToList<ICharacterAppearance>();
 
-                    return humans.Concat(droids).ToLookup(a => a.EpisodeId, a => a.Character);
+                    return humanAppearances.Concat(droidAppearances).ToLookup(a => a.EpisodeId, a => a.Character);
                 });
         }
     }

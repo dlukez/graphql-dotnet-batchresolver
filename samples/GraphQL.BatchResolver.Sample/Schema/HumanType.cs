@@ -22,29 +22,25 @@ namespace GraphQL.BatchResolver.Sample.Schema
 
             Field<ListGraphType<CharacterInterface>>()
                 .Name("friends")
-                .Batch(h => h.HumanId)
-                .Resolve(async ctx =>
+                .ResolveMany(h => h.HumanId, ctx =>
                 {
                     var ids = ctx.Source;
                     var db = ctx.GetDataContext();
-                    return (await db.Friendships
-                            .Where(f => ids.Contains(f.HumanId))
-                            .Select(f => new {Key = f.HumanId, f.Droid})
-                            .ToListAsync())
+                    return db.Friendships
+                        .Where(f => ids.Contains(f.HumanId))
+                        .Select(f => new {Key = f.HumanId, f.Droid})
                         .ToLookup(x => x.Key, x => (ICharacter)x.Droid);
                 });
 
             Field<ListGraphType<EpisodeType>>()
                 .Name("appearsIn")
-                .Batch(h => h.HumanId)
-                .Resolve(async ctx =>
+                .ResolveMany(h => h.HumanId, ctx =>
                 {
                     var ids = ctx.Source;
                     var db = ctx.GetDataContext();
-                    return (await db.HumanAppearances
-                            .Where(ha => ids.Contains(ha.HumanId))
-                            .Select(ha => new { Key = ha.HumanId, ha.Episode })
-                            .ToListAsync())
+                    return db.HumanAppearances
+                        .Where(ha => ids.Contains(ha.HumanId))
+                        .Select(ha => new { Key = ha.HumanId, ha.Episode })
                         .ToLookup(x => x.Key, x => x.Episode);
                 });
 
