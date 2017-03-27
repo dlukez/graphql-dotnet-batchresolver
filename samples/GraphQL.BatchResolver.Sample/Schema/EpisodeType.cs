@@ -15,7 +15,7 @@ namespace GraphQL.BatchResolver.Sample.Schema
 
             Field<ListGraphType<CharacterInterface>>()
                 .Name("characters")
-                .ResolveMany(e => e.EpisodeId, ctx =>
+                .BatchResolve(e => e.EpisodeId, ctx =>
                 {
                     var ids = ctx.Source;
                     var db = ctx.GetDataContext();

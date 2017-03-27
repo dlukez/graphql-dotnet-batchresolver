@@ -32,6 +32,8 @@ namespace GraphQL.BatchResolver.Sample
             Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId.ToString().PadLeft(2, ' ')} - Running query #{queryNumber}");
             var sw = Stopwatch.StartNew();
 
+            Console.WriteLine(BatchStack.Dump());
+
             var result = await _executer.ExecuteAsync(_ =>
             {
                 _.Query = request.Query;

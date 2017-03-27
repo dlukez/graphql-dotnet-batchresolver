@@ -10,13 +10,13 @@ namespace GraphQL.BatchResolver
     /// <summary>
     /// Adds support for resolving batches from an inner object.
     /// </summary>
-    public class ChildBatchResolver<TSource, TKey, TReturn> : IFieldResolver
+    public class BatchFieldResolver<TSource, TKey, TReturn> : IFieldResolver
     {
         private readonly ConditionalWeakTable<object, ILookup<TKey, TReturn>> _resultsTable = new ConditionalWeakTable<object, ILookup<TKey, TReturn>>();
         private readonly Func<ResolveFieldContext<IEnumerable<TKey>>, ILookup<TKey, TReturn>> _resolver;
         private readonly Func<TSource, TKey> _keySelector;
 
-        public ChildBatchResolver(Func<ResolveFieldContext<IEnumerable<TKey>>, ILookup<TKey, TReturn>> resolver, Func<TSource, TKey> keySelector)
+        public BatchFieldResolver(Func<ResolveFieldContext<IEnumerable<TKey>>, ILookup<TKey, TReturn>> resolver, Func<TSource, TKey> keySelector)
         {
             if (resolver == null) throw new ArgumentNullException(nameof(resolver));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));

@@ -23,7 +23,7 @@ namespace GraphQL.BatchResolver.Sample.Schema
 
             Field<ListGraphType<CharacterInterface>>()
                 .Name("friends")
-                .ResolveMany(d => d.DroidId, ctx =>
+                .BatchResolve(d => d.DroidId, ctx =>
                 {
                     var ids = ctx.Source;
                     var db = ctx.GetDataContext();
@@ -35,7 +35,7 @@ namespace GraphQL.BatchResolver.Sample.Schema
 
             Field<ListGraphType<EpisodeType>>()
                 .Name("appearsIn")
-                .ResolveMany(d => d.DroidId, ctx =>
+                .BatchResolve(d => d.DroidId, ctx =>
                 {
                     var ids = ctx.Source;
                     var db = ctx.GetDataContext();
