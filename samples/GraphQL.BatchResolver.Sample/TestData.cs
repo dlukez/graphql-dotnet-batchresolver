@@ -67,7 +67,6 @@ namespace GraphQL.BatchResolver.Sample
                         }).ToList()
                     }));
 
-
                 // Friendships
                 db.Friendships.AddRange(
                     Enumerable.Range(1, options.NumberOfFriendships).Select(_ => new Friendship
